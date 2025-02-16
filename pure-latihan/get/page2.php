@@ -1,3 +1,16 @@
+<?php
+
+if (
+    !isset($_GET["nama"]) ||
+    !isset($_GET["spesies"]) ||
+    !isset($_GET["foto"]) ||
+    !isset($_GET["asal"])
+) {
+    header("Location: page1.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +31,9 @@
         <li>Spesies: <?= $_GET["spesies"]; ?></li>
     </ul>
 
-    <a href="page1.php"><h1 style="margin-left : 30px">Balik</h1></a>
+    <a href="page1.php">
+        <h1 style="margin-left : 30px">Balik</h1>
+    </a>
 </body>
 
 </html>
