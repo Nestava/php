@@ -1,29 +1,7 @@
 <?php
 
-// koneksi
-$db = mysqli_connect("localhost", "root", "", "phpdasar");
-
-// diambil cangkang
-$result = mysqli_query($db, "SELECT * FROM waifu");
-
-// tutor ambil daleman
-// mysqli_fetch_row() // mengembalikan array numerik (indeks angka)
-//  $waifu = mysqli_fetch_row($result);
-//  var_dump($waifu[2]);
-// mysqli_fetch_assoc() // mengembalikan array assosiative (indeks have names)
-//  $waifu = mysqli_fetch_assoc($result);
-//  var_dump($waifu["spesies"]);
-// mysqli_fetch_array() // mengembalikan array assosiative dan numerik (data ngedouble, berat)
-//  $waifu = mysqli_fetch_array($result);
-//  var_dump($waifu["nama"]);
-//  var_dump($waifu["1"]);
-// mysqli_fetch_object() // senangkepku sih, assoc cuman pake panah
-//  $waifu = mysqli_fetch_object($result);
-//  var_dump($waifu->nama);
-
-while ($waifu = mysqli_fetch_assoc($result)) {
-    var_dump($waifu["nama"]);
-}
+require 'functions.php';
+$waifu = query("SELECT * FROM waifu");  
 
 ?>
 
@@ -38,7 +16,7 @@ while ($waifu = mysqli_fetch_assoc($result)) {
 
 <body>
     <h1>My-Waifu</h1>
-    <table border="1" cellpadding="10" cellspacing="0">
+    <table border="1" cellpadding="10" cellspacing="0" style="margin-bottom : 70px;">
         <tr>
             <th>No.</th>
             <th>Aksi</th>
@@ -47,19 +25,23 @@ while ($waifu = mysqli_fetch_assoc($result)) {
             <th>Nama</th>
             <th>Spesies</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>
-                <a href="">Ubah</a> |
-                <a href="">Hapus</a>
-            </td>
-            <td>
-                <img src="../assets/ryo.jpg" width="250px">
-            </td>
-            <td>Bocchi The Rock!</td>
-            <td>Ryou Yamada</td>
-            <td>Human</td>
-        </tr>
+        <?php $i = 1; ?>
+        <?php foreach ($waifu as $row ) : ?>
+            <tr>
+                <td style="text-align: center;"><?= $i ?></td>
+                <td>
+                    <a href="">Ubah</a> |
+                    <a href="">Hapus</a>
+                </td>
+                <td style="text-align: center;">
+                    <img src="assets/<?= $row["gambar"] ?>" width="250px">
+                </td>
+                <td style="text-align: center;"><?= $row["asal"] ?></td>
+                <td style="text-align: center;"><?= $row["nama"] ?></td>
+                <td style="text-align: center;"><?= $row["spesies"] ?></td>
+            </tr>
+        <?php $i++ ?>
+        <?php endforeach; ?>
     </table>
 </body>
 
